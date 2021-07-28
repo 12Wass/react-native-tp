@@ -1,20 +1,18 @@
 import React, {useState} from 'react';
-import Button from '../lib/Button';
-import {View, TextInput} from 'react-native';
+import {View} from 'react-native';
+import {TextInput, Button} from 'react-native-paper';
 
 export default function Form({onSubmit, selectedValue}) {
   const [values, setValues] = useState(
     selectedValue === true
       ? {
-          name: '',
-          quantity: 0,
-          unitPrice: 0,
+          nom: '',
+          status: '',
         }
       : selectedValue,
   );
 
-  const _onSubmit = event => {
-    event.preventDefault();
+  const _onSubmit = () => {
     // Vanilla JS approch
     //const newData = new FormData(event.target);
     //const values = newData.entries.reduce((acc, [key, value]) => {
@@ -33,39 +31,30 @@ export default function Form({onSubmit, selectedValue}) {
   return (
     <View onSubmit={_onSubmit}>
       <TextInput
+        label="Nom"
         onChangeText={value =>
           handleChange({
             target: {
-              name: 'name',
+              name: 'nom',
               value,
             },
           })
         }
-        value={values.name}
+        value={values.nom}
       />
       <TextInput
+        label="Status"
         onChangeText={value =>
           handleChange({
             target: {
-              name: 'unitPrice',
+              name: 'status',
               value,
             },
           })
         }
-        value={values.unitPrice}
+        value={values.status}
       />
-      <TextInput
-        onChangeText={value =>
-          handleChange({
-            target: {
-              name: 'quantity',
-              value,
-            },
-          })
-        }
-        value={values.quantity}
-      />
-      <Button title="Submit" onClick={_onSubmit} />
+      <Button onPress={_onSubmit}>Submit</Button>
     </View>
   );
 }
