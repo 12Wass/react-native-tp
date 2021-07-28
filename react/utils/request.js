@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AsyncStorage } from 'react-native';
 import queryString from 'query-string';
 
 export default async function request(host, options = {}) {

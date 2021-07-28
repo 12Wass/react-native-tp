@@ -1,13 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Form from './Form';
-import {CodeContext} from '../../contexts/CodeContext';
+import TaskForm from './TaskForm';
+import {ListContext} from '../../contexts/ListContext';
 import {View} from 'react-native';
 import {Portal, Dialog, Button} from 'react-native-paper';
 
 export default function AddEditItem({item = false}) {
   const [achatModal, setAchatModal] = useState(item);
   const [tacheModal, setTacheModal] = useState(item);
-  const {addElement, editElement} = useContext(CodeContext);
+  const {addElement, editElement} = useContext(ListContext);
 
   useEffect(() => {
     setAchatModal(item);
@@ -46,7 +47,7 @@ export default function AddEditItem({item = false}) {
           onDismiss={() => setTacheModal(false)}>
           <Dialog.Title>Liste de tâches</Dialog.Title>
           <Dialog.Content>
-            <Form onSubmit={onSubmit} selectedValue={tacheModal} />
+            <TaskForm onSubmit={onSubmit} selectedValue={tacheModal} />
           </Dialog.Content>
         </Dialog>
       </Portal>

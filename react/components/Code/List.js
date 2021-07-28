@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
 import ListItem from './ListItem';
-import {CodeContext} from '../../contexts/CodeContext';
+import {ListContext} from '../../contexts/ListContext';
 import {FlatList} from 'react-native';
 
 export default function List({onEdit}) {
-  const {list, fetchList, loading, page} = useContext(CodeContext);
+  const {list, fetchList, loading, page} = useContext(ListContext);
   return (
     <FlatList
       data={list}

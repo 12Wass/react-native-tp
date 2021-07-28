@@ -1,4 +1,4 @@
-import React, {
+import  React, {
   createContext,
   useState,
   useEffect,
@@ -6,11 +6,11 @@ import React, {
   useCallback,
 } from 'react';
 
-import {getCodes, editCode, addCode, deleteCode} from './actions/codes';
+import {getLists, editList, addList, deleteList} from './actions/list-storage';
 
-export const CodeContext = createContext();
+export const ListContext = createContext();
 
-export default function CodeProvider({children}) {
+export default function ListProvider({children}) {
   const [list, setList] = useState([]);
   const [ready, setReady] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ export default function CodeProvider({children}) {
     async (filters = {page: 1, perPage: 10}, invalidate = false) => {
       setLoading(true);
       if (!filters.perPage) filters.perPage = 10;
-      return getCodes(filters).then(data => {
+      return getLists(filters).then(data => {
         setLoading(false);
         setList(invalidate ? data : [...list, data]);
         setPage(filters.page);
@@ -34,7 +34,7 @@ export default function CodeProvider({children}) {
 
   const addElement = useCallback(
     async item => {
-      const result = await addCode(item);
+      const result = await addList(item);
       setList([...list, result]);
     },
     [list],
@@ -42,7 +42,7 @@ export default function CodeProvider({children}) {
 
   const deleteElement = useCallback(
     async item => {
-      await deleteCode(item);
+      await deleteList(item);
       setList(list.filter(_it => _it._id !== item._id));
     },
     [list],
@@ -50,7 +50,7 @@ export default function CodeProvider({children}) {
 
   const editElement = useCallback(
     async item => {
-      const result = await editCode(item);
+      const result = await editList(item);
       setList(list.map(_it => (_it._id !== result._id ? _it : result)));
       //)
     },
@@ -65,7 +65,7 @@ export default function CodeProvider({children}) {
   );
 
   return (
-    <CodeContext.Provider
+    <ListContext.Provider
       value={{
         list,
         fetchList,
@@ -78,6 +78,6 @@ export default function CodeProvider({children}) {
         page,
       }}>
       {children}
-    </CodeContext.Provider>
+    </ListContext.Provider>
   );
 }

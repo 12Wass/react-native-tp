@@ -6,9 +6,8 @@ export default function Form({onSubmit, selectedValue}) {
   const [values, setValues] = useState(
     selectedValue === true
       ? {
-          code: '',
-          message: '',
-          description: '',
+          nom: '',
+          status: 'uncompleted',
         }
       : selectedValue,
   );
@@ -32,40 +31,16 @@ export default function Form({onSubmit, selectedValue}) {
   return (
     <View onSubmit={_onSubmit}>
       <TextInput
-        label="Code"
+        label="Nom"
         onChangeText={value =>
           handleChange({
             target: {
-              name: 'code',
+              name: 'nom',
               value,
             },
           })
         }
-        value={values.code}
-      />
-      <TextInput
-        label="Message"
-        onChangeText={value =>
-          handleChange({
-            target: {
-              name: 'message',
-              value,
-            },
-          })
-        }
-        value={values.message}
-      />
-      <TextInput
-        label="Description"
-        onChangeText={value =>
-          handleChange({
-            target: {
-              name: 'description',
-              value,
-            },
-          })
-        }
-        value={values.description}
+        value={values.nom}
       />
       <Button onPress={_onSubmit}>Submit</Button>
     </View>

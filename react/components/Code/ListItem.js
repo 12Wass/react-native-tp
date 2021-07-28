@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {IconButton, List} from 'react-native-paper';
-import {CodeContext} from '../../contexts/CodeContext';
+import {ListContext} from '../../contexts/ListContext';
 
 export default function ListItem({item, onEdit}) {
-  const {deleteElement} = useContext(CodeContext);
+  const {deleteElement} = useContext(ListContext);
 
   return (
     <List.Item

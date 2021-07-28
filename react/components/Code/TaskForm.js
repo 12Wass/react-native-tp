@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
+import DatePicker from "react-native-datepicker";
 
-export default function Form({onSubmit, selectedValue}) {
+export default function TaskForm({onSubmit, selectedValue}) {
   const [values, setValues] = useState(
     selectedValue === true
       ? {
           nom: '',
-          status: '',
+          status: 'uncompleted',
+          dateJalon: ''
         }
       : selectedValue,
   );
@@ -42,18 +44,22 @@ export default function Form({onSubmit, selectedValue}) {
         }
         value={values.nom}
       />
-      <TextInput
-        label="Status"
-        onChangeText={value =>
-          handleChange({
-            target: {
-              name: 'status',
-              value,
-            },
-          })
-        }
-        value={values.status}
-      />
+        <DatePicker
+        style={{width: 500}}
+        date={values.dateJalon}
+        mode="date"
+        placeholder="Date Jalon"
+        format="YYYY-MM-DD"
+        minDate="2019-05-01"
+        maxDate="2042-06-01"
+        confirmBtnText="Confirmer"
+        cancelBtnText="Annuler"
+        onDateChange={(date) => {
+            handleChange(
+            { target : {
+                name : 'dateJalon', date,
+                }})}}
+        />
       <Button onPress={_onSubmit}>Submit</Button>
     </View>
   );
